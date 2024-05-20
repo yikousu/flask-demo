@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Form</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_form.css') }}">
+
+</head>
+<body>
+<div class="container">
+    <h1>User Form</h1>
+    <form method="POST">
+          {{ form.hidden_tag() }}
+        <p>
+            <label>{{ form.name.label }}</label>
+            {{ form.name(size=32, id="name") }}
+        </p>
+
+        <p>
+            <label>{{ form.age.label }}</label>
+            {{ form.age(id="age") }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+    <div class="btn-group">
+        <a href="{{ url_for('main.index') }}">
+            <button class="primary">Back to user list</button>
+        </a>
+    </div>
+</div>
+</body>
+</html>
