@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block title %}用户列表{% endblock %} {% block
+content %}
+<h1>所有用户</h1>
+
+<div class="add-user-link">
+  <a href="{{ url_for('main.add_user') }}" class="btn btn-primary"
+    >添加新用户</a
+  >
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>姓名</th>
+      <th>年龄</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+    <tr>
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.age }}</td>
+      <td class="action-buttons">
+        <a
+          href="{{ url_for('main.edit_user', user_id=user.id) }}"
+          class="btn btn-secondary btn-sm"
+          >编辑</a
+        >
+        <form
+          action="{{ url_for('main.delete_user', user_id=user.id) }}"
+          method="post"
+        >
+          {{ form.hidden_tag() }} {# 使用 form 而不是直接 csrf_token() 更符合
+          WTForms #}
+          <button type="submit" class="btn btn-danger btn-sm">删除</button>
+        </form>
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="4" style="text-align: center">暂无用户</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
